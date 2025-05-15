@@ -1,6 +1,13 @@
 import React from 'react';
-import { Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from '@mui/material';
 import styled from 'styled-components';
+import Paper from '@mui/material/Paper';
+import Table from '@mui/material/Table';
+import TableRow from '@mui/material/TableRow';
+import TableBody from '@mui/material/TableBody';
+import TableCell from '@mui/material/TableCell';
+import TableHead from '@mui/material/TableHead';
+import TableContainer from '@mui/material/TableContainer';
+
 import { UserDto } from '../dtos/user.dto';
 
 interface UsersTableProps {
@@ -10,6 +17,7 @@ interface UsersTableProps {
 const UsersTable: React.FC<UsersTableProps> = ({ users }) => {
   return (
     <ContainerWrapper>
+      <h2>Users list</h2>
       <TableContainer component={Paper}>
         <Table>
           <TableHead>

@@ -1,13 +1,16 @@
 import React from 'react';
-import { useUsers } from '../hooks/useUsers';
-import { CircularProgress } from '@mui/material';
-import UsersTable from './users-table';
 import styled from 'styled-components';
+import CircularProgress from '@mui/material/CircularProgress';
+
+import UsersTable from './users-table';
+import { useUsers } from '../hooks/useUsers';
+import AddUserForm from './add-user-form/add-user-form';
 
 const Users = () => {
-  const { users, loading, error } = useUsers();
+  const { users, loading, addUser, addUserLoading, error } = useUsers();
   return (
     <Container>
+      <AddUserForm onAdd={addUser} loading={addUserLoading} />
       {loading && <CircularProgress />}
       <>
         {error && <ErrorMsg>{error}</ErrorMsg>}

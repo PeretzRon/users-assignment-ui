@@ -53,7 +53,7 @@ const AddUserForm = ({ onAdd, loading }: AddUserFormProps) => {
   return (
     <Container onSubmit={handleSubmit}>
       <Title>Create new user</Title>
-      <div className={'fieldsConfig'}>
+      <div className={'fields'}>
         {fieldsConfig.map((field) => (
           <TextField
             key={field.name}

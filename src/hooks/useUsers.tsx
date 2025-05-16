@@ -28,8 +28,8 @@ export function useUsers() {
     try {
       setLoadingFor('getUsers', true);
       setError('');
-      const users = await fetchData<UserDto[]>(usersServerUrl);
-      setUsers(users || []);
+      const result = await fetchData<{ users: UserDto[] }>(usersServerUrl);
+      setUsers(result.users || []);
     } catch (e) {
       setError('Failed to get users');
     } finally {
@@ -59,7 +59,7 @@ export function useUsers() {
   const deleteUser = async (uuid: string) => {
     try {
       setLoadingFor('delete', true);
-      setError('')
+      setError('');
       await new Promise((resolve) => {
         setTimeout(() => resolve(undefined), 1000);
       });

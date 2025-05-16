@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react';
 import { fetchData } from '../utils/api';
 import { UserDto } from '../dtos/user.dto';
 import { AddUserFormData } from '../dtos/add-user-form-data';
+import { ApiError } from '../components/shared/Errors/api-error';
 import { DeleteUserResponseDto } from '../dtos/delete-user-response.dto';
 
 type ActionType = 'getUsers' | 'add' | 'delete';
@@ -39,6 +40,7 @@ export function useUsers() {
 
   const addUser = async (formData: AddUserFormData) => {
     try {
+      setError('');
       setLoadingFor('add', true);
       const result = await fetchData<UserDto>(usersServerUrl, {
         method: 'POST',
@@ -50,6 +52,9 @@ export function useUsers() {
       setUsers((prev) => [...prev, result]);
       return true;
     } catch (e) {
+      if (e instanceof ApiError && e.status === 409) {
+        setError('Email already exists');
+      }
       return false;
     } finally {
       setLoadingFor('add', false);

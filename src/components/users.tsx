@@ -7,15 +7,15 @@ import { useUsers } from '../hooks/useUsers';
 import AddUserForm from './add-user-form/add-user-form';
 
 const Users = () => {
-  const { users, loading, addUser, addUserLoading, error } = useUsers();
+  const { users, addUser, deleteUser, loadingMap, error } = useUsers();
   return (
     <Container>
-      <AddUserForm onAdd={addUser} loading={addUserLoading} />
-      {loading && <CircularProgress />}
+      <AddUserForm onAdd={addUser} loading={loadingMap.add} />
+      {loadingMap.getUsers && <CircularProgress />}
       <>
-        {error && <ErrorMsg>{error}</ErrorMsg>}
+        <ErrorMsg>{error}</ErrorMsg>
         {users.length > 0 && (<div className={'table-wrapper'}>
-          <UsersTable users={users} />
+          <UsersTable users={users} onDelete={deleteUser} loadingDelete={loadingMap.delete} />
         </div>)}
 
       </>
@@ -33,7 +33,8 @@ const Container = styled.div`
 
 const ErrorMsg = styled.p`
   color: #cc0000;
-  font-size: 2rem;
+  height: 30px;
+  font-size: 1.2rem;
 `;
 
 export default Users;

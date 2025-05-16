@@ -1,8 +1,10 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
-import { AddUserFormData } from '../../dtos/add-user-form-data';
-import { Button, CircularProgress, TextField } from '@mui/material';
+import TextField from '@mui/material/TextField';
+
+import LoaderButton from '../shared/loader-button';
 import { validateFormData } from './add-user-form.validation';
+import { AddUserFormData } from '../../dtos/add-user-form-data';
 
 interface AddUserFormProps {
   onAdd: (formData: AddUserFormData) => Promise<boolean>;
@@ -68,8 +70,8 @@ const AddUserForm = ({ onAdd, loading }: AddUserFormProps) => {
           />
         ))}
       </div>
-      <SubmitButton type="submit" disabled={loading} variant="contained" color="primary">
-        {loading ? <CircularProgress size={20} /> : 'Create'}
+      <SubmitButton loading={loading} type="submit" disabled={loading} variant="contained" color="primary">
+        Create
       </SubmitButton>
       <StatusMessage>{msgStatus}</StatusMessage>
     </Container>
@@ -102,7 +104,7 @@ const Title = styled.h2`
   margin-top: 0;
 `;
 
-const SubmitButton = styled(Button)`
+const SubmitButton = styled(LoaderButton)`
   && {
     margin-top: 20px;
   }
